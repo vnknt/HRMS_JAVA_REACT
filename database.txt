@@ -46,7 +46,7 @@ CREATE TABLE public."Employers"
     PRIMARY KEY (user_id)
 );
 
-CREATE TABLE public."JobTitles"
+CREATE TABLE public."Jobs"
 (
     id integer GENERATED ALWAYS AS IDENTITY ( INCREMENT 1 START 1 MINVALUE 1 ),
     name character varying(40)[] NOT NULL,
