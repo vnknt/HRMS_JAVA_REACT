@@ -8,14 +8,14 @@ import javax.persistence.Table;
 
 import lombok.Data;
 @Entity
-@Table(name="Jobs")
+@Table(name="jobs")
 @Data
 public class Job {
 	@Id
 	@GeneratedValue
-	@Column(name="id")
+	@Column(name="job_title_id")
 	private int id;
 	
-	@Column(name="name")
+	@Column(name="job_name")
 	private String name;
 }

@@ -9,10 +9,16 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.hrms.business.abstracts.JobService;
 import com.example.hrms.business.concretes.JobManager;
+import com.example.hrms.core.concretes.utilities.results.DataResult;
+import com.example.hrms.core.concretes.utilities.results.Result;
+import com.example.hrms.core.concretes.utilities.results.SuccessDataResult;
 import com.example.hrms.entities.concretes.Job;
+import com.google.common.net.MediaType;
+
+import net.bytebuddy.asm.Advice.This;
 
 @RestController
-@RequestMapping("/api/jobs")
+@RequestMapping(value = "/api/jobs"  )
 public class JobsController {
 	
 	private JobService jobManager;
@@ -27,8 +33,11 @@ public class JobsController {
 
 
 	@GetMapping("/getall")
-	public List<Job> getAll() {
+	public DataResult<List<Job>> getAll() {
+		
 		return this.jobManager.getAll();
+		
+		
 	}
 	
 	
