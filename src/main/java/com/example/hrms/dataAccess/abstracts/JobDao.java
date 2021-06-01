@@ -7,6 +7,6 @@ import com.example.hrms.entities.concretes.Job;
 public interface JobDao extends JpaRepository<Job, Integer>{
 
 	
-	
+	Job findByJobNameIgnoreCase(String jobName);
 	
 }

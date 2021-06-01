@@ -14,6 +14,7 @@ public class Messages {
 	public static String registration_success 				= 	"Kayıt işlemi başarılı";
 	public static String email_domain_different				=	"E-mail ve website farklı domaine ait olamaz";
 	public static String website_alreay_in_use				=	"Bu domain ile daha önce kayıt var";
-		
-	
+	public static String job_already_exists					=	"Bu pozisyon zaten daha önce eklendi";	
+	public static String error_occured						=	"Bir hata oluştu, kayıt eklenemedi";
+			
 }

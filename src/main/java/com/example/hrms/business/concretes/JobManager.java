@@ -6,8 +6,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.example.hrms.business.abstracts.JobService;
+import com.example.hrms.business.constants.Messages;
 import com.example.hrms.core.concretes.utilities.results.DataResult;
+import com.example.hrms.core.concretes.utilities.results.ErrorResult;
+import com.example.hrms.core.concretes.utilities.results.Result;
 import com.example.hrms.core.concretes.utilities.results.SuccessDataResult;
+import com.example.hrms.core.concretes.utilities.results.SuccessResult;
 import com.example.hrms.dataAccess.abstracts.JobDao;
 import com.example.hrms.entities.concretes.Job;
 
@@ -32,6 +36,22 @@ public class JobManager implements JobService {
 				this.jobDao.findAll(),"data listelendi"
 				);
 		
+	}
+
+
+	@Override
+	public Result add(Job job) {
+		Job result = this.jobDao.findByJobNameIgnoreCase(job.getJobName());
+		if(result!=null) {
+			return new ErrorResult(Messages.job_already_exists);
+		}
+		try {
+			this.jobDao.save(job);
+			
+		}catch (Exception e) {
+			return new ErrorResult(Messages.error_occured);
+		}
+		return new SuccessResult();		
 	}
 
 	
