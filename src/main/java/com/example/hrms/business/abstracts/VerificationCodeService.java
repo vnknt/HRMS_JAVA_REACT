@@ -6,10 +6,12 @@ import com.example.hrms.entities.concretes.VerificationCode;
 
 public interface VerificationCodeService {
 
-	DataResult<VerificationCode> createVerificationCode(User user);
+	DataResult<VerificationCode> createVerificationCodeForUser(User user);
 	
 	Result add(VerificationCode verificationCode);
 	
 	Result sendCodeByMail(User user,VerificationCode code);
+	
+	Result verify(User user, String verification_code);
 	
 }

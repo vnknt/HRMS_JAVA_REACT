@@ -33,9 +33,9 @@ public class VerificationCodeManager implements VerificationCodeService {
 	
 	
 	@Override
-	public DataResult<VerificationCode> createVerificationCode(User user) {
+	public DataResult<VerificationCode> createVerificationCodeForUser(User user) {
 		String code = this.generateCode();
-		VerificationCode verificationCode = new VerificationCode(0,user.getUser_id(),code,new Date(System.currentTimeMillis()));
+		VerificationCode verificationCode = new VerificationCode(0,user.getUserId(),code,new Date(System.currentTimeMillis()));
 		this.add(verificationCode);
 		return new SuccessDataResult<VerificationCode>(verificationCode);
 	}
@@ -77,6 +77,29 @@ public class VerificationCodeManager implements VerificationCodeService {
 		String code  = Integer.toString(random_num);
 		
 		return code;
+	}
+
+
+
+
+	@Override
+	public Result verify(User user, String verification_code) {
+		
+		
+		VerificationCode result = this.verificationCodeDao.findByUserIdAndVerificationCode(user.getUserId(), verification_code);
+		
+		if(result == null) {
+			return new ErrorResult("Not found");
+		}
+		
+		
+		if(result.getVerificationCode() == verification_code  && result.getUserId() == user.getUserId()) {
+			
+			
+		}
+		
+		
+		return null;
 	}
 
 	

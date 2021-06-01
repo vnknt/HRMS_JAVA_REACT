@@ -13,7 +13,7 @@ public interface CandidateDao extends JpaRepository<Candidate, Integer> {
 	
 	List<Candidate>  findByEmail(String email);
 	
-	@Query("select c from Candidate c where c.identity_number = ?1")
+	//@Query("select c from Candidate c where c.identity_number = ?1")
 	List<Candidate> findByIdentityNumber(String identity_number);
 	
 

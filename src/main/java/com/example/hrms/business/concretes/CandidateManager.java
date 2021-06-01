@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.example.hrms.business.abstracts.CandidateService;
+import com.example.hrms.business.abstracts.VerificationCodeService;
 import com.example.hrms.business.constants.Messages;
 import com.example.hrms.business.validationRules.InputValidation;
 import com.example.hrms.core.concretes.utilities.business.BusinessRules;
@@ -16,6 +17,7 @@ import com.example.hrms.core.concretes.utilities.results.SuccessDataResult;
 import com.example.hrms.core.concretes.utilities.results.SuccessResult;
 import com.example.hrms.core.concretes.utilities.validation.ValidationService;
 import com.example.hrms.dataAccess.abstracts.CandidateDao;
+import com.example.hrms.entities.abstracts.User;
 import com.example.hrms.entities.concretes.Candidate;
 @Service
 public class CandidateManager implements CandidateService {
@@ -23,10 +25,12 @@ public class CandidateManager implements CandidateService {
 	
 	private CandidateDao candidateDao;
 	private ValidationService validationService;
+	private VerificationCodeService verificationCodeService;
 	@Autowired
-	public CandidateManager(CandidateDao candidateDao  ,ValidationService validationService ) {
+	public CandidateManager(CandidateDao candidateDao  ,ValidationService validationService , VerificationCodeService verificationCodeService ) {
 		this.candidateDao = candidateDao;
 		this.validationService = validationService;
+		this.verificationCodeService = verificationCodeService;
 	}
 	
 	
@@ -44,11 +48,11 @@ public class CandidateManager implements CandidateService {
 				InputValidation.isEmailValid(candidate.getEmail()),
 				this.checkIfEmailNotExists(candidate.getEmail()) ,
 				
-				InputValidation.checkInputLen(candidate.getIdentity_number(), 11, 11, "Tc no"),
-				this.checkIfIdentityNotExists(candidate.getIdentity_number()),
+				InputValidation.checkInputLen(candidate.getIdentityNumber(), 11, 11, "Tc no"),
+				this.checkIfIdentityNotExists(candidate.getIdentityNumber()),
 				
-				InputValidation.checkInputLen(candidate.getFirst_name(), 3, 25, "İsim"),
-				InputValidation.checkInputLen(candidate.getLast_name(), 3, 25, "Soyisim"),
+				InputValidation.checkInputLen(candidate.getFirstName(), 3, 25, "İsim"),
+				InputValidation.checkInputLen(candidate.getLastName(), 3, 25, "Soyisim"),
 				InputValidation.checkInputLen(candidate.getPassword(), 6, 18, "Şifre"),
 				this.checkIdentityInfo(candidate)
 				
@@ -61,11 +65,9 @@ public class CandidateManager implements CandidateService {
 		
 		}
 		
-		
-		
 		try {
-			
-			this.candidateDao.save(candidate);
+			User addedUser = this.candidateDao.save(candidate);
+			this.verificationCodeService.createVerificationCodeForUser(addedUser);
 			
 		} catch (Exception e) {
 			return new ErrorResult(Messages.registration_error);
@@ -111,10 +113,10 @@ public class CandidateManager implements CandidateService {
 	private Result checkIdentityInfo(Candidate candidate) {
 		
 		boolean validationResult = this.validationService.validate(
-									candidate.getIdentity_number(),
-									candidate.getFirst_name(),
-									candidate.getLast_name(),
-									candidate.getBirth_date());
+									candidate.getIdentityNumber(),
+									candidate.getFirstName(),
+									candidate.getLastName(),
+									candidate.getBirthDate());
 		if(!validationResult) {
 			return new ErrorResult(Messages.identity_verification_error);
 		}

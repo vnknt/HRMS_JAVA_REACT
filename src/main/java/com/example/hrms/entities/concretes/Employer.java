@@ -21,7 +21,7 @@ public class Employer extends User {
 	
 	
 	@Column(name="company_name")
-	private String company_name;
+	private String companyName;
 	
 	@Column(name="website")
 	private String website;

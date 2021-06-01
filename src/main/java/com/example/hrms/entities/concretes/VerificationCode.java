@@ -27,10 +27,10 @@ public class VerificationCode {
 	private int id;
 	
 	@Column(name="user_id")
-	private int user_id;
+	private int userId;
 	
 	@Column(name="verification_code")
-	private String verification_code;
+	private String verificationCode;
 	
 	@Column(name="date")
 	private Date date;
