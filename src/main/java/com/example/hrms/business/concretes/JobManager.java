@@ -14,6 +14,7 @@ import com.example.hrms.core.concretes.utilities.results.SuccessDataResult;
 import com.example.hrms.core.concretes.utilities.results.SuccessResult;
 import com.example.hrms.dataAccess.abstracts.JobDao;
 import com.example.hrms.entities.concretes.Job;
+import com.example.hrms.entities.dtos.JobAdvertDto;
 
 @Service
 public class JobManager implements JobService {
@@ -29,7 +30,6 @@ public class JobManager implements JobService {
 
 	@Override
 	public DataResult<List<Job>>  getAll() {
-		
 		
 		return new SuccessDataResult<List<Job>>(
 				
