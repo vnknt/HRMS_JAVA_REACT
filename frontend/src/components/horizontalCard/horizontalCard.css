@@ -1,0 +1,30 @@
+
+.horizontalCard{
+    border-radius: 5px;
+}
+
+.horizontalCard:hover{
+
+    box-shadow: 0px 0px 7px 1px rgb(204, 204, 204);
+
+}
+
+
+.horizontalCardImage{
+    width: 80px !important;
+    object-fit: contain;
+}
+
+
+.advert-date{
+
+    text-align: right;
+
+}
+
+.advert-job , .advert-job:hover ,.advert-job:visited{
+    text-decoration: none;
+    color:#000;
+    font-weight: bold;
+    font-size:1.3rem;
+}
