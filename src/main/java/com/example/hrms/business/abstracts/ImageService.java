@@ -1,17 +1,14 @@
 package com.example.hrms.business.abstracts;
 
-import java.util.List;
+import java.util.Map;
 
+import org.springframework.web.multipart.MultipartFile;
 
 import com.example.hrms.core.concretes.utilities.results.DataResult;
 import com.example.hrms.core.concretes.utilities.results.Result;
-import com.example.hrms.entities.concretes.Candidate;
 
-public interface CandidateService {
-	
-	DataResult<List<Candidate>> getAll();
-
-	Result add(Candidate candidate);
+public interface ImageService {
+	Result upload(MultipartFile file);
 	
 	
 }

@@ -3,6 +3,7 @@ package com.example.hrms.api;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -18,6 +19,7 @@ import com.example.hrms.entities.dtos.JobAdvertDto;
 
 @RestController
 @RequestMapping("/api/jobAdverts")
+@CrossOrigin
 public class JobAdvertsController {
 	private JobAdvertService jobAdvertService;
 	
@@ -34,10 +36,6 @@ public class JobAdvertsController {
 		
 		return this.jobAdvertService.getAll();
 	}
-	
-	
-	
-	
 	
 	
 	@GetMapping("/getByCompanyName")
