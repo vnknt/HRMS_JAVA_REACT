@@ -4,11 +4,14 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.hrms.business.abstracts.CvService;
 import com.example.hrms.core.concretes.utilities.results.DataResult;
+import com.example.hrms.core.concretes.utilities.results.Result;
 import com.example.hrms.entities.concretes.Cv;
 
 @RestController
@@ -36,6 +39,16 @@ public class CvsController {
 		return this.cvService.getByCandidateId(candidateId);
 	}
 	
+	@PostMapping("/add")
+	public Result add(@RequestBody Cv cv) {
+		
+		return this.cvService.add(cv);
+	}
 	
-	
+	@PostMapping("/update")
+	public Result update(@RequestBody Cv cv) {
+		
+		return this.cvService.update(cv);
+		
+	}
 }

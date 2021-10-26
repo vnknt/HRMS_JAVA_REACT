@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.example.hrms.business.abstracts.CvService;
 import com.example.hrms.core.concretes.utilities.results.DataResult;
+import com.example.hrms.core.concretes.utilities.results.ErrorResult;
 import com.example.hrms.core.concretes.utilities.results.Result;
 import com.example.hrms.core.concretes.utilities.results.SuccessDataResult;
 import com.example.hrms.core.concretes.utilities.results.SuccessResult;
@@ -41,6 +42,19 @@ public class CvManager implements CvService {
 	@Override
 	public DataResult<List<Cv>> getByCandidateId(int candidateId) {
 		return new SuccessDataResult<List<Cv>>(this.cvDao.getByCandidate_UserId(candidateId));
+	}
+
+
+	@Override
+	public Result update(Cv cv) {
+		
+		try {
+			this.cvDao.save(cv);
+			
+		}catch(Exception e) {
+			return new ErrorResult();
+		}
+		return new SuccessResult();		
 	}
 
 	

@@ -9,6 +9,7 @@ import com.example.hrms.entities.concretes.Cv;
 public interface CvService {
 
 	Result add(Cv cv);
+	Result update(Cv cv);
 	DataResult<List<Cv>> getAll();
 	DataResult<List<Cv>> getByCandidateId(int candidateId);
 	

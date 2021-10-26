@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestAttribute;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -31,10 +32,16 @@ public class JobAdvertsController {
 		this.jobAdvertService = jobAdvertService;
 	}
 	
-	@GetMapping("/getall")
-	public DataResult<List<JobAdvert>> getAll(){
+	@GetMapping("/getAllConfirmed")
+	public DataResult<List<JobAdvert>> getAllConfirmed(){
 		
-		return this.jobAdvertService.getAll();
+		return this.jobAdvertService.getAllConfirmed();
+	}
+	
+	@GetMapping("/getAllUnconfirmed")
+	public DataResult<List<JobAdvert>> getAllUnconfirmed(){
+		
+		return this.jobAdvertService.getAllUnconfirmed();
 	}
 	
 	
@@ -60,11 +67,27 @@ public class JobAdvertsController {
 	
 	@PostMapping("/add")
 	public Result add(@RequestBody JobAdvert jobAdvert) {
+		
 		return this.jobAdvertService.add(jobAdvert);
+		
+		
 	}
 	
 	
+	@GetMapping("/getById")
+	public DataResult<JobAdvert> getById(int id){
+		
+		
+		return this.jobAdvertService.getByJobAdvertId(id);
+	}
 	
+	
+	@GetMapping("/confirmJobAdvert")
+	public Result confirmJobAdvert(@RequestParam(value="jobAdvertId") int jobAdvertId) {
+		
+		return this.jobAdvertService.confirmJobAdvert( jobAdvertId);
+		
+	}
 	
 	
 	

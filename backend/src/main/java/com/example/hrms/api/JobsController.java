@@ -3,6 +3,7 @@ package com.example.hrms.api;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -21,6 +22,7 @@ import net.bytebuddy.asm.Advice.This;
 
 @RestController
 @RequestMapping(value = "/api/jobs"  )
+@CrossOrigin
 public class JobsController {
 	
 	private JobService jobManager;
@@ -34,7 +36,7 @@ public class JobsController {
 
 
 
-	@GetMapping("/getall")
+	@GetMapping("/getAll")
 	public DataResult<List<Job>> getAll() {
 		
 		return this.jobManager.getAll();

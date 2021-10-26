@@ -1,5 +1,6 @@
 package com.example.hrms.business.concretes;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,13 +29,33 @@ public class JobAdvertManager implements JobAdvertService {
 	
 	
 	@Override
-	public DataResult<List<JobAdvert>> getAll() {
+	public DataResult<List<JobAdvert>> getAllConfirmed() {
 		
-		return new SuccessDataResult<List<JobAdvert>>(this.jobAdvertDao.findAll());
+		return new SuccessDataResult<List<JobAdvert>>(this.jobAdvertDao.findByIsActiveTrue());
 	}
 
+	
+	@Override
+	public DataResult<List<JobAdvert>> getAllUnconfirmed() {
+		
+		return new SuccessDataResult<List<JobAdvert>>(this.jobAdvertDao.findByIsActiveFalse());
+	}
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	@Override
 	public Result add(JobAdvert jobAdvert) {
+		
+		jobAdvert.setCreationDate(new Date() );
+		
+		
 		try {
 			this.jobAdvertDao.save(jobAdvert);
 		}catch (Exception e) {
@@ -60,6 +81,35 @@ public class JobAdvertManager implements JobAdvertService {
 	@Override
 	public DataResult<List<JobAdvert>> getAllByEmployer_CompanyNameAndIsActiveTrue(String companyName) {
 		return new SuccessDataResult<List<JobAdvert>>(this.jobAdvertDao.getByEmployer_CompanyNameAndIsActiveTrue(companyName));
+	}
+
+
+	@Override
+	public DataResult<JobAdvert> getByJobAdvertId(int id) {
+		return new SuccessDataResult<JobAdvert>(this.jobAdvertDao.getByJobAdvertId(id));
+	}
+
+
+	@Override
+	public Result confirmJobAdvert(int jobAdvertId) {
+		try {
+			JobAdvert jobAdvert = this.jobAdvertDao.getById(jobAdvertId);
+			jobAdvert.setActive(true);
+			
+			jobAdvertDao.save(jobAdvert);
+			
+		}catch(Exception e ) {
+			return new ErrorResult();
+		}
+		
+		return new SuccessResult();
+	}
+
+
+	@Override
+	public DataResult<List<JobAdvert>> getAll() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 	
