@@ -1,6 +1,19 @@
+
+@import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css');
 .App {
+  background-color: rgb(250, 250, 250);  
   
 }
+
+
+
+
 .ui.container{
   padding-top: 5em;
+}
+
+
+.divScrolled{
+  height: 200px;
+  overflow-y: scroll;
 }
