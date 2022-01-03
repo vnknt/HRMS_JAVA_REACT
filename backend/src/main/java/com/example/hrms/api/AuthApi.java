@@ -2,6 +2,8 @@ package com.example.hrms.api;
 
 import com.example.hrms.core.concretes.utilities.results.DataResult;
 import com.example.hrms.core.concretes.utilities.results.SuccessDataResult;
+import com.example.hrms.dataAccess.abstracts.UserDao;
+import com.example.hrms.entities.abstracts.User;
 import com.example.hrms.security.TokenManager;
 import com.example.hrms.security.model.AuthRequest;
 import com.example.hrms.security.model.AuthResponse;
@@ -23,7 +25,7 @@ public class AuthApi {
     private final TokenManager tokenManager;
     private final AuthenticationManager authenticationManager;
     private final UserDetailsService userDetailsService;
-
+    private final UserDao userDao;
 
     @PostMapping
     public ResponseEntity<DataResult<AuthResponse>> login(@RequestBody AuthRequest authRequest){
@@ -38,11 +40,14 @@ public class AuthApi {
         }
 
         UserDetails userDetails = userDetailsService.loadUserByUsername(authRequest.getEmail());
+        User user = userDao.findUserByEmail(authRequest.getEmail());
         return ResponseEntity.ok(
                 new SuccessDataResult<>(new AuthResponse(
-                        tokenManager.generateToken(userDetails)
+                        tokenManager.generateToken(userDetails,user.getUserId())
                 ))
 
         );
     }
+
+
 }

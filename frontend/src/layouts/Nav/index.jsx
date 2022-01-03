@@ -76,8 +76,8 @@ useEffect(() => {
             :""}
             {
               user
-              ?<button className="btn btn-success" onClick={()=>handleLogout()}>Giriş Yapıldı</button>
-              : <button className="btn btn-danger" onClick={()=>handleLogin()}>Giriş Yapılmadı</button>
+              ?<button className="btn btn-danger" onClick={()=>handleLogout()}>Çıkış Yap</button>
+              : <button className="btn btn-success" onClick={()=>handleLogin()}>Giriş Yap</button>
             }
             
             

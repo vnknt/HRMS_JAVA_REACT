@@ -12,7 +12,11 @@ export default function JobAdverts() {
 
     jobAdvertService
       .getJobAdverts()
-      .then((result) => setJobAdverts(result.data.data));
+      .then((result) => {
+        setJobAdverts(result.data.data 
+         console.log(result))});
+
+     
   }, []);
 
 

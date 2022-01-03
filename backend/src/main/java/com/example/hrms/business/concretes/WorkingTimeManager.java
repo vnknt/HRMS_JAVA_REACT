@@ -2,6 +2,8 @@ package com.example.hrms.business.concretes;
 
 import java.util.List;
 
+import com.example.hrms.core.concretes.utilities.results.Result;
+import com.example.hrms.core.concretes.utilities.results.SuccessResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -33,6 +35,11 @@ public class WorkingTimeManager implements WorkingTimeService {
 		return new SuccessDataResult<List<WorkingTime>>(this.workingTimeDao.findAll());
 		
 	}
-	
+
+	@Override
+	public Result add(WorkingTime workingTime){
+		this.workingTimeDao.save(workingTime);
+		return new SuccessResult();
+	}
 	
 }

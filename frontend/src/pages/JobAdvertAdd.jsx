@@ -75,10 +75,13 @@ export default function JobAdvertAdd() {
     maxSalary: Yup.number(),
     workingTime: Yup.number().required("Bu alan zorunlu"),
     workingType: Yup.number().required("Bu alan zorunlu"),
-    description: Yup.string().required("Açıklama zorunlu").length(10)
+    description: Yup.string().required("Açıklama zorunlu").min(3).max(100)
   })
 
   const sendForm = (values)=>{
+    let user_id = localStorage.getItem("user_id")
+
+
     let jobAdvert = {
       job:{jobId:values.jobId},
       city:{cityId:values.cityId},
@@ -87,7 +90,7 @@ export default function JobAdvertAdd() {
       description:values.description,
       workingType:{workingTypeId:values.workingType},
       workingTime:{workingTimeId:values.workingTime},
-      employer:{userId:1}
+      employer:{userId:user_id}
     }
 
     jobAdvertService.addJobAdvert(jobAdvert).then(result=>{

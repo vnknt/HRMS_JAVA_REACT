@@ -10,7 +10,7 @@ export default function Dashboard() {
       <>
         <Row>
             <Col sm={3} className="d-none d-sm-block  ">
-                 <Sidebar></Sidebar>
+                 <Sidebar props={}></Sidebar>
             </Col>
             <Col xs={12} sm={9} className=""  >
               <JobAdverts></JobAdverts>

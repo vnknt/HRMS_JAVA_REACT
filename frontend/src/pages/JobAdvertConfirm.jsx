@@ -11,7 +11,7 @@ export default function JobAdvertConfirm() {
     let history = useHistory()
 
     useEffect(()=>{
-        
+        console.log(jobAdverts)
     let role = localStorage.getItem("role")
     if(role!=="SYSTEM_USER"){
         history.push("/forbidden")

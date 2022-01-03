@@ -17,11 +17,12 @@ public class TokenManager {
     private final int expiration_time = 20*60*1000;
     private final String secretKey = "secretkey";
 
-    public String generateToken(UserDetails userDetails ){
+    public String generateToken(UserDetails userDetails ,Integer userId){
 
         Map<String,Object> claims = new HashMap<>();
         SignatureAlgorithm algorithm = SignatureAlgorithm.HS256;
         claims.put("roles",userDetails.getAuthorities());
+        claims.put("id",userId);
         String token = Jwts.builder()
                 .setClaims(claims)
                 .setSubject(userDetails.getUsername())

@@ -3,7 +3,12 @@ package com.example.hrms.business.concretes;
 import java.util.Date;
 import java.util.List;
 
+import com.example.hrms.dataAccess.abstracts.EmployerDao;
+import com.example.hrms.entities.concretes.Employer;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
 import com.example.hrms.business.abstracts.JobAdvertService;
@@ -20,7 +25,8 @@ import com.example.hrms.entities.dtos.JobAdvertDto;
 public class JobAdvertManager implements JobAdvertService {
 
 	private JobAdvertDao jobAdvertDao;
-	
+	@Autowired
+	private EmployerDao employerDao;
 	
 	@Autowired
 	public JobAdvertManager(JobAdvertDao jobAdvertDao) {
@@ -52,10 +58,16 @@ public class JobAdvertManager implements JobAdvertService {
 	
 	@Override
 	public Result add(JobAdvert jobAdvert) {
-		
-		jobAdvert.setCreationDate(new Date() );
-		
-		
+//
+//		jobAdvert.setCreationDate(new Date() );
+//		Authentication userDetails = SecurityContextHolder.getContext().getAuthentication();
+//
+//		String email = userDetails.getName();
+//
+//		Employer employer = employerDao.findEmployerByEmail(email);
+//		jobAdvert.setEmployer(employer);
+//
+
 		try {
 			this.jobAdvertDao.save(jobAdvert);
 		}catch (Exception e) {
@@ -82,6 +94,9 @@ public class JobAdvertManager implements JobAdvertService {
 	public DataResult<List<JobAdvert>> getAllByEmployer_CompanyNameAndIsActiveTrue(String companyName) {
 		return new SuccessDataResult<List<JobAdvert>>(this.jobAdvertDao.getByEmployer_CompanyNameAndIsActiveTrue(companyName));
 	}
+
+
+
 
 
 	@Override

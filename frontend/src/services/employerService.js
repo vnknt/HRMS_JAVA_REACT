@@ -1,10 +1,12 @@
 import axios from 'axios'
+import Constants from '../utilities/Constants'
 
 
 export default class EmployerService{
 
     getEmployers(){
-        return(axios.get("http://localhost:8080/api/employers/getall"))
+        let url= Constants.getApiUrl()
+        return(axios.get(url+"employers/getall"))
 
     }
 

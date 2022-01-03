@@ -1,38 +1,39 @@
 import axios from 'axios';
+import Constants from '../utilities/Constants';
 
 export default class JobAdvertService {
      
    getJobAdverts(){
-
-       return axios.get("http://localhost:8080/api/jobAdverts/getAllConfirmed")
+     let url= Constants.getApiUrl()
+       return axios.get(url+"jobAdverts/getAllConfirmed")
        
    }
     
    getUnconfirmedJobAdverts(){
-
-     return axios.get("http://localhost:8080/api/jobAdverts/getAllUnconfirmed")
+     let url= Constants.getApiUrl()
+       return axios.get(url+"jobAdverts/getAllUnconfirmed")
      
  }
   
 
 
    getJobAdvertById(id){
-
-        return axios.get("http://localhost:8080/api/jobAdverts/getById?id="+id)
+     let url= Constants.getApiUrl()
+       return axios.get(url+"jobAdverts/getById?id="+id)
    }
 
 
 
    addJobAdvert(jobAdvert){
-
-        return axios.post("http://localhost:8080/api/jobAdverts/add",jobAdvert)
+     let url= Constants.getApiUrl()
+       return axios.post(url+"jobAdverts/add",jobAdvert)
 
    }
 
 
    confirmJobAdvert(jobAdvertId){
-     
-     return axios.get("http://localhost:8080/api/jobAdverts/confirmJobAdvert?jobAdvertId="+jobAdvertId)
+     let url= Constants.getApiUrl()
+       return axios.get(url+"jobAdverts/confirmJobAdvert?jobAdvertId="+jobAdvertId)
 
 }
 

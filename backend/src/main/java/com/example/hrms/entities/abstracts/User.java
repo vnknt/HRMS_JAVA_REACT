@@ -28,7 +28,7 @@ public class User {
 	@Column(name="password")
 	private String password;
 
-	@OneToMany(fetch = FetchType.EAGER)
+	@ManyToMany(fetch = FetchType.EAGER)
 	@Column(name="roles")
 	private Collection<UserRole> roles;
 	

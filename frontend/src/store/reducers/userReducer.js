@@ -14,7 +14,7 @@ export function userReducer(state=initialState,{type,payLoad}){
             let token = payLoad.accessToken
             let token_decoded = jwt_decode(token)
             localStorage.setItem("role",token_decoded.roles[0].authority)
-
+            localStorage.setItem("user_id",token_decoded.id)
             return true
             
         case Actions.USER_LOGOUT:
