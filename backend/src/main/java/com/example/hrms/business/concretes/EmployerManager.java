@@ -3,6 +3,7 @@ package com.example.hrms.business.concretes;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.example.hrms.business.abstracts.EmployerService;
@@ -21,10 +22,12 @@ import springfox.documentation.schema.plugins.SchemaPluginsManager;
 
 
 @Service
+
 public class EmployerManager implements EmployerService {
 
 	private EmployerDao employerDao;
-	
+	@Autowired
+	private  PasswordEncoder passwordEncoder;
 	
 	@Autowired
 	public EmployerManager(EmployerDao employerDao) {
@@ -39,29 +42,34 @@ public class EmployerManager implements EmployerService {
 	
 	@Override
 	public Result add(Employer employer) {
-		Result businessResult= BusinessRules.run(
-									InputValidation.isEmailValid(employer.getEmail()),
-									this.checkDomainAndEmail(employer.getWebsite(), employer.getEmail()),
-									this.checkIfEmailNotExists(employer.getEmail()),
-									this.checkIfWebsiteNotExists(employer.getWebsite()),
-									InputValidation.checkInputLen(employer.getPassword(), 8, 18, "Şifre"),
-									InputValidation.checkInputLen(employer.getPhone(), 6,15, "Telofon no")
-									
-										);
+//		Result businessResult= BusinessRules.run(
+//									InputValidation.isEmailValid(employer.getEmail()),
+//									this.checkDomainAndEmail(employer.getWebsite(), employer.getEmail()),
+//									this.checkIfEmailNotExists(employer.getEmail()),
+//									this.checkIfWebsiteNotExists(employer.getWebsite()),
+//									InputValidation.checkInputLen(employer.getPassword(), 8, 18, "Şifre"),
+//									InputValidation.checkInputLen(employer.getPhone(), 6,15, "Telofon no")
+//
+//										);
 		
 		
 		
-		if(!businessResult.isSuccess()) {
-			
-			return businessResult;
-			
+//		if(!businessResult.isSuccess()) {
+//
+//			return businessResult;
+//
+//		}
+		Employer employer1 = employerDao.findByEmail(employer.getEmail());
+		if(employer1==null){
+			try {
+				employer.setPassword(passwordEncoder.encode(employer.getPassword()));
+				this.employerDao.save(employer);
+
+			}catch (Exception e) {
+				return new ErrorResult(Messages.registration_error);
+			}
 		}
-		try {
-			this.employerDao.save(employer);
-			
-		}catch (Exception e) {
-			return new ErrorResult(Messages.registration_error);
-		}
+
 		return new SuccessResult(Messages.registration_success);
 		
 		

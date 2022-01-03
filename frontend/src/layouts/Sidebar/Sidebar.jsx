@@ -6,12 +6,24 @@ import CitySection from "./Sections/CitySection"
 import PositionSection from './Sections/PositionSection'
 import "./sidebar.css"
 
-export default function Sidebar() {
+export default function Sidebar({filteredCities}) {
 
 
 
   let [cities, setCities] = useState([])
   let [jobs , setJobs]  =useState([])
+  let [filtered,setFiltered] = useState([])
+
+
+
+
+  useEffect(() => {
+
+  
+
+  }, [])
+
+
 
   useEffect(() => {
 
@@ -36,7 +48,7 @@ export default function Sidebar() {
   return (
 
     <div>
-      <CitySection cities={cities}/>
+      <CitySection cities={cities} filtered={filtered}/>
       <PositionSection jobs={jobs}/>
 
       

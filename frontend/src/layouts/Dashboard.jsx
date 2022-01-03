@@ -10,7 +10,7 @@ import JobAdvertAdd from "../pages/JobAdvertAdd";
 import menuEmployer from "../components/menuEmployer/menuEmployer";
 import Test from "../pages/Test";
 import JobAdvertConfirm from "../pages/JobAdvertConfirm";
-
+import Login from '../pages/login/Login';
 export default function Dashboard() {
   return (
     <div>
@@ -27,7 +27,7 @@ export default function Dashboard() {
               <Col className="">
                 
                 <Route exact path="/job-adverts" component={JobAdverts}/>
-                <Route exact path="/job-advert/detail/:id" component={JobAdvertDetail}/>
+                <Route exact path="/job-adverts/detail/:id" component={JobAdvertDetail}/>
                 <Route exact path="/job-advert/add" component={JobAdvertAdd}/>
                 <Route exact path="/job-adverts/confirm" component={JobAdvertConfirm}/>
                 

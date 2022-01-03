@@ -1,4 +1,4 @@
-import React from 'react'
+import {React,useState,useEffect} from 'react'
 
 import {  Navbar, NavDropdown } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
@@ -8,21 +8,36 @@ import  ToggleButton  from './items/ToggleButton'
 import styles from './index.module.css'
 import { useDispatch, useSelector } from 'react-redux'
 import { login, logout } from '../../store/actions/userAction'
+import { useHistory } from 'react-router-dom'
 
 export default function Nav() {
+  const isUserLoggedIn = useSelector((state) => state.user)
+
 
   const user = useSelector(state => state.user)
   const dispatch = useDispatch();
+  const history = useHistory()
+
+  const [role, setRole] = useState(null)
 
   const handleLogin = ()=>{
 
-    dispatch(login(null))
-
+    history.push("/login")
+    
   }
 
-  const handleLogout=()=>{
-    dispatch(logout())
+useEffect(() => {
+  let r = localStorage.getItem("role")
+  setRole(r)
 
+}, [isUserLoggedIn])
+
+
+  const handleLogout=()=>{
+    history.push("/login")
+    
+    dispatch(logout())
+    setRole(null)
   }
 
   return (
@@ -47,12 +62,20 @@ export default function Nav() {
 
 
             <NavbarItem className="me-2" to="/">Ana Sayfa</NavbarItem>
-            <NavbarItem className="me-2" to="/job-adverts">İlanlar</NavbarItem>
-            <NavbarItem className="me-2" to="/job-advert/add">Yeni İlan</NavbarItem>
-            <NavbarItem className="me-2" to="/job-adverts/confirm">Onay Sayfası</NavbarItem>
-            
+            <NavbarItem className="me-2" to="/job-adverts" >İlanlar</NavbarItem>
             {
-              user.loginState
+              role==="EMPLOYER"?
+              <NavbarItem className="me-2" to="/job-advert/add" >Yeni İlan</NavbarItem>
+              :""
+          
+          }
+          
+          {
+              role==="SYSTEM_USER"?
+            <NavbarItem className="me-2" to="/job-adverts/confirm">Onay Sayfası</NavbarItem>
+            :""}
+            {
+              user
               ?<button className="btn btn-success" onClick={()=>handleLogout()}>Giriş Yapıldı</button>
               : <button className="btn btn-danger" onClick={()=>handleLogin()}>Giriş Yapılmadı</button>
             }

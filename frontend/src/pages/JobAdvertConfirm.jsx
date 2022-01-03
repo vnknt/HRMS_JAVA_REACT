@@ -1,4 +1,5 @@
 import React,{useState,useEffect} from 'react'
+import { useHistory } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import JobAdvertService from '../services/jobAdvertService'
 
@@ -7,9 +8,14 @@ export default function JobAdvertConfirm() {
     const [jobAdverts,setJobAdverts] = useState([])
 
     let jobAdvertService = new JobAdvertService();
+    let history = useHistory()
 
     useEffect(()=>{
-
+        
+    let role = localStorage.getItem("role")
+    if(role!=="SYSTEM_USER"){
+        history.push("/forbidden")
+    }
         jobAdvertService.getUnconfirmedJobAdverts().then(result=>{
             setJobAdverts(result.data.data)
         })

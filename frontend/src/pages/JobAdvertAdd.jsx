@@ -10,6 +10,7 @@ import FormTextInput from "../components/customForm/FormTextInput";
 import FormSelect from "../components/customForm/FormSelect";
 import FormTextArea from "../components/customForm/FormTextArea";
 import { Formik, Form } from "formik";
+import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 
 
 export default function JobAdvertAdd() {
@@ -19,7 +20,7 @@ export default function JobAdvertAdd() {
   let [workingTimes, setWorkingTimes] = useState([])
   let [showModal, setShowModal] = useState(true);
   let jobAdvertService = new JobAdvertService();
-
+  let history = useHistory()
   useEffect(() => {
     let cityService = new CityService();
     let jobService = new JobService();
@@ -27,8 +28,10 @@ export default function JobAdvertAdd() {
     let workingTimeService = new WorkingTimeService();
 
 
-
-
+    let role = localStorage.getItem("role")
+    if(role!=="EMPLOYER"){
+        history.push("/forbidden")
+    }
 
     cityService.getCities().then((result) => {
       setCities(result.data.data);

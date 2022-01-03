@@ -5,7 +5,7 @@ export function login(user){
 
     return({
         type:Actions.USER_LOGIN,
-        payload:user
+        payLoad:user
     })
 
 
